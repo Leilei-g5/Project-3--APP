@@ -4,30 +4,78 @@
 
 // pallette of colors
 color cream         =  #F2ECDD;
-color darkercream   =  #EFE6D5; 
-color yellow        =  #F7DD9C; 
+color darkercream   =  #F2DDC4; 
+color yellow        =  #FBE8BE; 
 color orange        =  #F7D19C; 
-color pink          =  #F7AB9c; 
+color pink          =  #F7AB9C; 
+color white         =  #FFFFFF;
+//variables for color selection 
+color SelectedColor; 
 
 void setup () { 
-  size (800, 600); 
+  size (800, 800); 
   strokeWeight(5); 
   stroke (darkercream); 
-} 
+  SelectedColor=pink;
+} // setup end //
 
 void draw () { 
   background(cream); 
   
   //buttons
+  //yellow
+    if (dist(200, 600, mouseX, mouseY) < 50) {
+  stroke(white); 
+    } else {
+  stroke(darkercream);
+    }
   fill (yellow); 
-  circle( 100, 100, 100); 
-  
+  circle(200, 600, 100); 
+  //orange
+  if (dist(400, 600, mouseX, mouseY) < 50) {
+  stroke(white); 
+    } else {
+  stroke(darkercream);
+    } 
   fill(orange); 
-  circle(100, 500, 100); 
-  
+  circle(400, 600, 100); 
+  //pink
+  if (dist(600, 600, mouseX, mouseY) < 50) {
+  stroke(white); 
+    } else {
+  stroke(darkercream);
+    }
   fill(pink); 
-  circle( 100, 500, 100); 
+  circle(600, 600, 100); 
   
   //indicator 
-  square (300, 100, 400); 
+  stroke(darkercream);
+  fill(SelectedColor); 
+  square (200, 100, 400); 
+} // end of draw // 
+
+
+void tactile (int x, int y, int r) {
+if (dist(x, y, mouseX, mouseY) < r) {
+  stroke(white); 
+    } else {
+  stroke(darkercream);
+    }
 }
+
+
+
+void mouseReleased() {
+  // yellow button
+  if (dist(200, 600, mouseX, mouseY) < 50) {
+  SelectedColor = yellow; 
+  }
+   // orange button
+  if (dist(400, 600, mouseX, mouseY) < 50) {
+  SelectedColor = orange; 
+  }
+   // pink button
+  if (dist(600, 600, mouseX, mouseY) < 50) {
+  SelectedColor = pink; 
+  }
+} // end mouseReleased //
