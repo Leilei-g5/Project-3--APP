@@ -24,27 +24,17 @@ void draw () {
   
   //buttons
   //yellow
-    if (dist(200, 600, mouseX, mouseY) < 50) {
-  stroke(white); 
-    } else {
-  stroke(darkercream);
-    }
+  tactile (200, 600, 50); 
   fill (yellow); 
-  circle(200, 600, 100); 
+  circle(200, 600, 100);
+  
   //orange
-  if (dist(400, 600, mouseX, mouseY) < 50) {
-  stroke(white); 
-    } else {
-  stroke(darkercream);
-    } 
+  tactile (400, 600, 50); 
   fill(orange); 
   circle(400, 600, 100); 
+  
   //pink
-  if (dist(600, 600, mouseX, mouseY) < 50) {
-  stroke(white); 
-    } else {
-  stroke(darkercream);
-    }
+  tactile (600, 600, 50); 
   fill(pink); 
   circle(600, 600, 100); 
   
@@ -55,16 +45,17 @@ void draw () {
 } // end of draw // 
 
 
+// tactile function
 void tactile (int x, int y, int r) {
 if (dist(x, y, mouseX, mouseY) < r) {
   stroke(white); 
     } else {
   stroke(darkercream);
     }
-}
+} // end tactile
 
 
-
+// mouseReleased
 void mouseReleased() {
   // yellow button
   if (dist(200, 600, mouseX, mouseY) < 50) {
