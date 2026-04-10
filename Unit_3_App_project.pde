@@ -10,21 +10,23 @@ color blue      = #40CAFF;
 color purple    = #7C03FF; 
 // variables for color selection 
 color SelectedColor; 
-float sliderY; 
-float circleX; 
+float sliderX; 
+float thickness; 
 
 void setup () {
   background(255);   
   size (800, 800); 
   strokeWeight(2); 
-  stroke (255); 
-  line(0, 200, 800, 200);
+  stroke (0); 
   SelectedColor= red;
+  sliderX= 400;
+  thickness = 0;
 }// setup end //
 
 void draw () { 
-  background(255); 
-  
+  background(255);
+  strokeWeight(2); // normal thickness
+  line(0, 200, 800, 200);
   //buttons
   //red
   tactile (80, 60, 25); 
@@ -56,11 +58,22 @@ void draw () {
   fill(purple); 
   circle (220, 140, 50);
   
-  //indicator 
+  //slider
+  stroke(0);
+  line(275, 100, 425, 100);
+  fill(255);
+  stroke(0);
+  circle(sliderX, 100, 30);
+  thickness = map(sliderX, 275, 425, 1, 15);
+  strokeWeight (thickness); 
+  
+  //indicator  
   stroke(0);
   fill(SelectedColor); 
-  rect (400, 50, 40, 100); 
-  
+  rect (450, 40, 40, 100); 
+
+
+
 }// end of draw // 
 
 
@@ -100,4 +113,26 @@ void mouseReleased() {
   if (dist(220, 140, mouseX, mouseY) < 25) {
   SelectedColor = purple; 
   }
+  // slider 
+  {
+  controlSlider();
+}
 } // end mouseReleased //
+
+//slider 
+void mouseDragged () {
+  //slider
+  controlSlider(); 
+  // drawing line
+  line(pmouseX, pmouseY, mouseX, mouseY); 
+}
+
+  //slider
+  void controlSlider() {
+  if (mouseX > 275 && mouseX < 425 && mouseY > 75 && mouseY < 125) { 
+    sliderX = mouseX;
+  // thickness
+    thickness = map(sliderX, 275, 425, 0, 255); 
+  }
+
+} 
