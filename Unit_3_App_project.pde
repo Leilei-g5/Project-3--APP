@@ -12,20 +12,30 @@ color purple    = #7C03FF;
 color SelectedColor; 
 float sliderX; 
 float thickness; 
+PImage Miffy; 
 
 void setup () {
   background(255);   
   size (800, 800); 
   strokeWeight(2); 
   stroke (0); 
+  // color
   SelectedColor= red;
+  //slider
   sliderX= 400;
   thickness = 0;
+  //stamp
+  Miffy = loadImage("Miffy pic.png"); 
 }// setup end //
 
 void draw () { 
-  background(255);
+  // control sectionm
+  fill (255); 
+  noStroke(); 
+  rect(0, 0, 800, 200);
   strokeWeight(2); // normal thickness
+  // divider line 
+  stroke(0);
   line(0, 200, 800, 200);
   //buttons
   //red
@@ -71,7 +81,14 @@ void draw () {
   stroke(0);
   fill(SelectedColor); 
   rect (450, 40, 40, 100); 
-
+  
+  //image stamp miffy button
+  tactile(0, 0, 100, 100);
+  fill (255);
+  strokeWeight(1);
+  rect (520, 30, 90, 125);
+  image (Miffy, 520, 45, 100, 100); 
+  
 
 
 }// end of draw // 
@@ -85,6 +102,15 @@ if (dist(x, y, mouseX, mouseY) < r) {
   stroke(0);
     }
 } // end tactile
+
+  // miffy button 
+void tactile( int x, int y, int w, int h) { 
+    if (mouseX > x && mouseX < x+w && mouseY > y && mouseY < y+h) { 
+      fill (255, 255, 0); 
+    } else { 
+      fill (255); 
+    }
+  }
 
 
 // mouseReleased
@@ -117,15 +143,18 @@ void mouseReleased() {
   {
   controlSlider();
 }
+
 } // end mouseReleased //
 
 //slider 
 void mouseDragged () {
   //slider
   controlSlider(); 
-  // drawing line
+  // drawing line {
+    if (mouseY > 200) {
   line(pmouseX, pmouseY, mouseX, mouseY); 
-}
+  }
+  }
 
   //slider
   void controlSlider() {
