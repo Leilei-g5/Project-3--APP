@@ -10,9 +10,12 @@ color blue      = #40CAFF;
 color purple    = #7C03FF; 
 // variables for color selection 
 color SelectedColor; 
+//thickness
 float sliderX; 
 float thickness; 
+//imgae 
 PImage Miffy; 
+boolean MiffyOn; // true or false
 
 void setup () {
   background(255);   
@@ -26,11 +29,12 @@ void setup () {
   thickness = 0;
   //stamp
   Miffy = loadImage("Miffy pic.png"); 
+  MiffyOn= false;
 }// setup end //
 
 void draw () { 
   // control sectionm
-  fill (255); 
+  fill (100); 
   noStroke(); 
   rect(0, 0, 800, 200);
   strokeWeight(2); // normal thickness
@@ -84,6 +88,7 @@ void draw () {
   
   //image stamp miffy button
   tactile(0, 0, 100, 100);
+  MiffyOnOff();
   fill (255);
   strokeWeight(1);
   rect (520, 30, 90, 125);
@@ -143,25 +148,51 @@ void mouseReleased() {
   {
   controlSlider();
 }
-
+  // Miffy button 
+  if (mouseX > 520 && mouseX < 620 && mouseY > 40 && mouseY < 140) {
+    MiffyOn = !MiffyOn ;
+  }
+  
+  // save button 
+  
 } // end mouseReleased //
 
-//slider 
-void mouseDragged () {
-  //slider
-  controlSlider(); 
-  // drawing line {
-    if (mouseY > 200) {
-  line(pmouseX, pmouseY, mouseX, mouseY); 
-  }
-  }
+ 
 
-  //slider
-  void controlSlider() {
-  if (mouseX > 275 && mouseX < 425 && mouseY > 75 && mouseY < 125) { 
+ //slider
+ void controlSlider() {
+if (mouseX > 275 && mouseX < 425 && mouseY > 75 && mouseY < 125) { 
     sliderX = mouseX;
   // thickness
-    thickness = map(sliderX, 275, 425, 0, 255); 
+   thickness = map(sliderX, 275, 425, 0, 255); 
   }
 
 } 
+
+//slider 
+void mouseDragged () {
+  
+ controlSlider(); 
+  if (MiffyOn == false) { 
+  // drawing line 
+    if (mouseY > 200) {
+  strokeWeight(thickness);
+  line(pmouseX, pmouseY, mouseX, mouseY);
+    } 
+  } else { 
+    // Miffy drawing
+    if(mouseY >200) {
+    image(Miffy, mouseX, mouseY, 40, 40);
+  }
+  }
+}
+  
+void MiffyOnOff () {
+  if (MiffyOn == true) { 
+    stroke (255, 0, 0); 
+    strokeWeight (5); 
+  } else { 
+    stroke(0); 
+    strokeWeight (1); 
+  }
+}
