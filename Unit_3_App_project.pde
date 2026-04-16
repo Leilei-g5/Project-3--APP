@@ -90,9 +90,37 @@ void draw () {
   tactile(0, 0, 100, 100);
   MiffyOnOff();
   fill (255);
-  strokeWeight(1);
+  strokeWeight(2);
   rect (520, 30, 90, 125);
   image (Miffy, 520, 45, 100, 100); 
+  
+  //file save button 
+  strokeWeight(2); 
+  stroke(0); 
+  fill(255); 
+  tactileRect(635, 30, 50, 25); 
+  rect( 635, 30, 50, 25);
+  fill(0);
+  text("save", 649, 47); 
+  
+  //file load button 
+  strokeWeight(2); 
+  stroke(0); 
+  fill(255); 
+  tactileRect(635, 80, 50, 25); 
+  rect(635, 80, 50, 25);
+  fill(0);
+  text("load", 649, 97); 
+  
+  // new button 
+  strokeWeight(2); 
+  stroke(0); 
+  fill(255); 
+  tactileRect(635, 130, 50, 25); 
+  rect(635, 130, 50, 25);
+  fill(0);
+  text("new", 649, 146); 
+  
   
 
 
@@ -116,6 +144,15 @@ void tactile( int x, int y, int w, int h) {
       fill (255); 
     }
   }
+  
+  // tactile function
+void tactileRect (int x, int y, int w, int h) {
+if (mouseX > x && mouseX < x + w && mouseY > y && mouseY < y + h) {
+  stroke(255); 
+    } else {
+  stroke(0);
+    }
+} // end tactile
 
 
 // mouseReleased
@@ -154,7 +191,21 @@ void mouseReleased() {
   }
   
   // save button 
+  if (mouseX> 635 && mouseX < 685 && mouseY > 30 && mouseY < 55) { 
+    selectOutput("Choose a name for your new image file", "saveImage"); 
+  }
   
+  //load button 
+    if (mouseX> 635 && mouseX < 685 && mouseY > 80 && mouseY < 105) { 
+    selectInput("Pick an image to load", "openImage"); 
+  }
+  
+  //new button 
+      if (mouseX> 635 && mouseX < 685 && mouseY > 130 && mouseY < 155) { 
+      background(255);
+  }
+  
+
 } // end mouseReleased //
 
  
@@ -169,13 +220,34 @@ if (mouseX > 275 && mouseX < 425 && mouseY > 75 && mouseY < 125) {
 
 } 
 
+//save Image 
+void saveImage(File f) { 
+  if (f !=null) { 
+    PImage canvas = get( 71, 1, width-71, height-1); 
+    canvas.save( f.getAbsolutePath() );
+  }
+}
+
+//load Image 
+void openImage(File f) {
+  if (f !=null) { 
+    //KLUDGE 
+    int n=0; 
+    while (n < 100) { 
+      PImage pic = loadImage(f.getPath() ); 
+      image (pic, 0, 0); 
+      n = n+1; 
+    } 
+  }
+}
+
 //slider 
 void mouseDragged () {
-  
  controlSlider(); 
   if (MiffyOn == false) { 
   // drawing line 
     if (mouseY > 200) {
+  stroke(SelectedColor);
   strokeWeight(thickness);
   line(pmouseX, pmouseY, mouseX, mouseY);
     } 
@@ -186,7 +258,7 @@ void mouseDragged () {
   }
   }
 }
-  
+  //Miffy button
 void MiffyOnOff () {
   if (MiffyOn == true) { 
     stroke (255, 0, 0); 
