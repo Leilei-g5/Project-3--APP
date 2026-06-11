@@ -13,6 +13,7 @@ color SelectedColor;
 //thickness
 float sliderX; 
 float thickness; 
+float miffySize = 40; 
 //imgae 
 PImage Miffy; 
 boolean MiffyOn; // true or false
@@ -43,34 +44,22 @@ void draw () {
   line(0, 200, 800, 200);
   //buttons
   //red
-  tactile (80, 60, 25); 
-  fill (red); 
-  circle(80, 60, 50);
+  circleButton (red, 80, 60, 50); 
   
   //orange
-  tactile (150, 60, 25); 
-  fill(orange); 
-  circle(150, 60, 50); 
+  circleButton (orange, 150, 60, 50);
   
   //yellow
-  tactile (220, 60, 25); 
-  fill(yellow); 
-  circle(220, 60, 50); 
+  circleButton (yellow, 220, 60, 50);
   
   //green 
-  tactile (80, 140, 25); 
-  fill(green); 
-  circle (80, 140, 50);
+  circleButton (green, 80, 140, 50);
   
   //blue 
-  tactile (150, 140, 25); 
-  fill(blue); 
-  circle (150, 140, 50);
+  circleButton (blue, 150, 140, 50);
   
   //purple 
-  tactile (220, 140, 25); 
-  fill(purple); 
-  circle (220, 140, 50);
+  circleButton (purple, 220, 140, 50);
   
   //slider
   stroke(0);
@@ -80,6 +69,7 @@ void draw () {
   circle(sliderX, 100, 30);
   thickness = map(sliderX, 275, 425, 1, 15);
   strokeWeight (thickness); 
+  miffySize = map(sliderX, 275, 425, 20, 100);
   
   //indicator  
   stroke(0);
@@ -87,44 +77,49 @@ void draw () {
   rect (450, 40, 40, 100); 
   
   //image stamp miffy button
-  tactile(0, 0, 100, 100);
+  noStroke();
+  //rectButton(255, 520, 30, 50, 75);
+  tactileRect(520, 30, 50, 75);
   MiffyOnOff();
   fill (255);
   strokeWeight(2);
-  rect (520, 30, 90, 125);
-  image (Miffy, 520, 45, 100, 100); 
+  rect (520, 30, 50, 75);
+  image (Miffy, 520, 45, 55, 55); 
   
   //file save button 
   strokeWeight(2); 
-  stroke(0); 
-  fill(255); 
-  tactileRect(635, 30, 50, 25); 
-  rect( 635, 30, 50, 25);
+  stroke(0);
+  rectButton(255, 635, 30, 50, 25);
   fill(0);
   text("save", 649, 47); 
   
   //file load button 
   strokeWeight(2); 
-  stroke(0); 
-  fill(255); 
-  tactileRect(635, 80, 50, 25); 
-  rect(635, 80, 50, 25);
+  stroke(0);
+  rectButton(255, 635, 80, 50, 25);
   fill(0);
   text("load", 649, 97); 
   
   // new button 
   strokeWeight(2); 
-  stroke(0); 
-  fill(255); 
-  tactileRect(635, 130, 50, 25); 
-  rect(635, 130, 50, 25);
+  stroke(0);
+  rectButton(255, 635, 130, 50, 25);
   fill(0);
   text("new", 649, 146); 
-  
-  
-
-
 }// end of draw // 
+
+//button function 
+void circleButton( color c, int x, int y, int d) {
+  tactile( x, y, d/2); 
+  fill(c); 
+  circle(x, y, d); 
+}
+
+void rectButton (color c, int x, int y, int w, int h) {
+  tactileRect(x, y, w, h); 
+  fill(c); 
+  rect(x, y, w, h);
+}
 
 
 // tactile function
@@ -135,15 +130,6 @@ if (dist(x, y, mouseX, mouseY) < r) {
   stroke(0);
     }
 } // end tactile
-
-  // miffy button 
-void tactile( int x, int y, int w, int h) { 
-    if (mouseX > x && mouseX < x+w && mouseY > y && mouseY < y+h) { 
-      fill (255, 255, 0); 
-    } else { 
-      fill (255); 
-    }
-  }
   
   // tactile function
 void tactileRect (int x, int y, int w, int h) {
@@ -153,7 +139,6 @@ if (mouseX > x && mouseX < x + w && mouseY > y && mouseY < y + h) {
   stroke(0);
     }
 } // end tactile
-
 
 // mouseReleased
 void mouseReleased() {
@@ -186,7 +171,7 @@ void mouseReleased() {
   controlSlider();
 }
   // Miffy button 
-  if (mouseX > 520 && mouseX < 620 && mouseY > 40 && mouseY < 140) {
+  if (mouseX > 520 && mouseX < 570 && mouseY > 30 && mouseY < 105) {
     MiffyOn = !MiffyOn ;
   }
   
@@ -216,14 +201,15 @@ if (mouseX > 275 && mouseX < 425 && mouseY > 75 && mouseY < 125) {
     sliderX = mouseX;
   // thickness
    thickness = map(sliderX, 275, 425, 0, 255); 
+  // size of miffy 
+  
   }
-
 } 
 
 //save Image 
 void saveImage(File f) { 
   if (f !=null) { 
-    PImage canvas = get( 71, 1, width-71, height-1); 
+    PImage canvas = get( 71, 1, width-80, height-1); 
     canvas.save( f.getAbsolutePath() );
   }
 }
@@ -254,7 +240,7 @@ void mouseDragged () {
   } else { 
     // Miffy drawing
     if(mouseY >200) {
-    image(Miffy, mouseX, mouseY, 40, 40);
+    image(Miffy, mouseX, mouseY, miffySize, miffySize);
   }
   }
 }
