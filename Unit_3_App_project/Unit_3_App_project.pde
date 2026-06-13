@@ -185,14 +185,18 @@ void mouseReleased() {
 }
   // Miffy button 
   if (mouseX > 520 && mouseX < 570 && mouseY > 30 && mouseY < 105) {
-    MiffyOn = true;
+    MiffyOn = !MiffyOn; 
+    if (MiffyOn == true) {
     Miffy2On = false;
+  }
   }
   
    // Miffy2 button 
   if (mouseX > 508 && mouseX < 618 && mouseY > 115 && mouseY < 190) {
-    Miffy2On = true ;
-    MiffyOn = false;
+    Miffy2On = !Miffy2On; 
+    if (Miffy2On == true) { 
+      MiffyOn = false;
+  }
   }
   
   // save button 
@@ -245,31 +249,29 @@ void openImage(File f) {
 //slider 
 void mouseDragged () {
  controlSlider(); 
-  if (MiffyOn == false) { 
+  if (MiffyOn == false && Miffy2On == false) { 
   // drawing line 
     if (mouseY > 200) {
   stroke(SelectedColor);
   strokeWeight(thickness);
   line(pmouseX, pmouseY, mouseX, mouseY);
     } 
-  } else { 
-    // Miffy drawing
-    if(mouseY >200) {
+  } 
+  if (MiffyOn == true) { 
+    if (mouseY > 200) {
     image(Miffy, mouseX, mouseY, miffySize, miffySize);
+    }
   }
-  }
-  if (Miffy2On == false) { 
+  if (Miffy2On == true) { 
   // drawing line 
     if (mouseY > 200) {
-  stroke(SelectedColor);
-  strokeWeight(thickness);
-  line(pmouseX, pmouseY, mouseX, mouseY);
-    } 
-  } else { 
-    // Miffy drawing
-    if(mouseY >200) {
     image(Miffy2, mouseX, mouseY, miffy2Size, miffy2Size);
-  }
+    } 
+ // } else { 
+    // Miffy drawing
+   // if(mouseY >200) {
+   // 
+ // }
   }
   }
   
