@@ -267,11 +267,6 @@ void mouseDragged () {
     if (mouseY > 200) {
     image(Miffy2, mouseX, mouseY, miffy2Size, miffy2Size);
     } 
- // } else { 
-    // Miffy drawing
-   // if(mouseY >200) {
-   // 
- // }
   }
   }
   
